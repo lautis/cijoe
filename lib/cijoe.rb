@@ -190,7 +190,7 @@ class CIJoe
         end
 
       data.each{ |k, v| ENV[k] = v }
-      `cd #{@project_path} && sh #{file}`
+      `cd #{@project_path} && ./#{file}`
     end
   end
 
