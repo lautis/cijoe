@@ -21,12 +21,13 @@ require 'cijoe/campfire'
 require 'cijoe/server'
 
 class CIJoe
-  attr_reader :user, :project, :url, :current_build, :last_build
+  attr_reader :user, :project, :url, :current_build, :last_build, :description
 
   def initialize(project_path)
     @project_path = File.expand_path(project_path)
 
     @user, @project = git_user_and_project
+    @description = Config.cijoe.description.to_s
     @url = "http://github.com/#{@user}/#{@project}"
 
     @last_build = nil
