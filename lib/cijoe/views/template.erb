@@ -14,6 +14,9 @@
 
       <div id="home">
         <h1><a href="<%= joe.url %>"><%= joe.project %></a></h1>
+        <% unless joe.description.empty? %>
+          <p><%= joe.description %></p>
+        <% end %>
         <ul class="posts">
           <% if joe.current_build %>
             <li>
