@@ -193,7 +193,7 @@ class CIJoe
         end
 
       data.each{ |k, v| ENV[k] = v }
-      ret = `cd #{@project_path} && ./#{file}`
+      ret = `cd #{@project_path} && #{file}`
       data.each{ |k, v| ENV[k] = nil }
       ret
     end
