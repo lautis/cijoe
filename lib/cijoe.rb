@@ -102,9 +102,10 @@ class CIJoe
       # leave anyway because a current build runs
       return
     end
-    @current_build = Build.new(@project_path, @user, @project)
+    @git_branch = branch
+    @current_build = Build.new(@project_path, @user, @project, git_branch)
     write_build 'current', @current_build
-    Thread.new { build!(branch) }
+    Thread.new { build! }
   end
 
   def open_pipe(cmd)
@@ -123,7 +124,6 @@ class CIJoe
 
   # update git then run the build
   def build!(branch=nil)
-    @git_branch = branch
     build = @current_build
     output = ''
     git_update
@@ -186,6 +186,7 @@ class CIJoe
             "MESSAGE" => @last_build.commit.message,
             "AUTHOR" => @last_build.commit.author,
             "SHA" => @last_build.commit.sha,
+            "BRANCH" => @last_build.branch,
             "OUTPUT" => @last_build.env_output
           }
         else
